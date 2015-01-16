@@ -8,7 +8,7 @@ describe Index do
 
   let(:args) do
     { target_dir: target_dir,
-      index_location: target_dir.join('index') }
+      index_location: index_location }
   end
 
   describe '#files' do
@@ -30,14 +30,54 @@ describe Index do
   end
 
   describe '#index_file' do
-    before do
-      allow(File).to receive(:open).with index_location, 'w'
-      subject.index_file
+    before { allow(File).to receive(:open) }
+
+    context 'with no arguments' do
+      before { subject.index_file }
+
+      it 'opens a file at the index location in read mode' do
+        expect(File).to have_received(:open)
+          .with index_location, 'r'
+      end
     end
 
-    it 'opens a file at the index location' do
-      expect(File).to have_received(:open)
-        .with index_location, 'w'
+    context 'when passed a write mode' do
+      before { subject.index_file mode: 'w' }
+
+      it 'opens a file at the index location in write mode' do
+        expect(File).to have_received(:open)
+          .with index_location, 'w'
+      end
+    end
+  end
+
+  describe '#load' do
+    context 'when there is not an index file available' do
+      let(:index_location) { 'spec/fixtures/nope' }
+
+      it 'returns false' do
+        expect(subject.load).to be false
+      end
+    end
+
+    context 'when there is an index file available' do
+      let(:index_location) { 'spec/fixtures/index' }
+
+      it 'returns true' do
+        expect(subject.load).to be true
+      end
+
+      it 'loads a previously saved index to memory' do
+        expect{ subject.load }
+          .to change { subject.files.count }
+          .from(0).to(2)
+
+        expect(subject.files.last.first.to_s)
+          .to eq 'path/file_2.txt'
+
+        expect(subject.files.last.last.to_s)
+          .to eq 'fake2md5'
+      end
     end
   end
 
@@ -75,6 +115,12 @@ describe Index do
       expect{ subject.scan }
         .to change { subject.files.count }
         .from(0).to(10)
+
+      expect(subject.files.last.first.to_s)
+        .to eq 'spec/fixtures/test_dir/file_1.txt'
+
+      expect(subject.files.last.last.to_s)
+        .to eq '5bbf5a52328e7439ae6e719dfe712200'
     end
   end
 end

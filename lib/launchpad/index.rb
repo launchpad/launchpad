@@ -7,20 +7,31 @@ class Index
     @files = []
   end
 
-  def index_file
-    @index_file ||= File.open @index_location, 'w'
+  def index_file(mode: 'r')
+    @index_file ||= File.open @index_location, mode
+  end
+
+  def load
+    index_file.each_line do |line|
+      line.split(' - ').tap do |path, md5|
+        @files << [ Pathname.new(path), md5.chomp ]
+      end
+    end
+  rescue Errno::ENOENT
+    return false
+  else
+    close
+    true
   end
 
   def save
     scan if files.empty?
 
     files.each do |data|
-      index_file.write "#{data[0]} - #{data[1]}\n"
+      index_file(mode: 'w').write "#{data[0]} - #{data[1]}\n"
     end
 
-    index_file.close
-    @index_file = nil
-
+    close
     self
   end
 
@@ -34,5 +45,12 @@ class Index
     end
 
     self
+  end
+
+  private
+
+  def close
+    index_file.close
+    @index_file = nil
   end
 end
