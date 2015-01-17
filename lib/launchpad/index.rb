@@ -13,7 +13,7 @@ class Index
 
   def load
     index_file.each_line do |line|
-      line.split(' - ').tap do |path, md5|
+      line.split(' | ').tap do |path, md5|
         @files << [ Pathname.new(path), md5.chomp ]
       end
     end
@@ -28,7 +28,7 @@ class Index
     scan if files.empty?
 
     files.each do |data|
-      index_file(mode: 'w').write "#{data[0]} - #{data[1]}\n"
+      index_file(mode: 'w').write "#{data[0]} | #{data[1]}\n"
     end
 
     close

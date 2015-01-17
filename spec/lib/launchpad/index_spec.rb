@@ -102,7 +102,7 @@ describe Index do
 
     it 'saves in the correct format' do
       expect(index_file.readlines.last)
-        .to match(/^[\w\/]*file_1.txt - 5b\w*$/)
+        .to match(/^[\w\/]*file_1.txt \| 5b\w*$/)
     end
 
     it 'closes the file when done' do
