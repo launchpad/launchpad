@@ -29,11 +29,11 @@ describe Index do
     end
   end
 
-  describe '#index_file' do
+  describe '#local_index' do
     before { allow(File).to receive(:open) }
 
     context 'with no arguments' do
-      before { subject.index_file }
+      before { subject.local_index }
 
       it 'opens a file at the index location in read mode' do
         expect(File).to have_received(:open)
@@ -42,7 +42,7 @@ describe Index do
     end
 
     context 'when passed a write mode' do
-      before { subject.index_file mode: 'w' }
+      before { subject.local_index mode: 'w' }
 
       it 'opens a file at the index location in write mode' do
         expect(File).to have_received(:open)
@@ -82,31 +82,31 @@ describe Index do
   end
 
   describe '#save' do
-    let(:index_file) { StringIO.new }
+    let(:local_index) { StringIO.new }
 
     before do
       allow(subject)
-        .to receive(:index_file)
-        .and_return index_file
+        .to receive(:local_index)
+        .and_return local_index
 
-      allow(index_file)
+      allow(local_index)
         .to receive(:close)
 
       subject.save
-      index_file.pos = 0
+      local_index.pos = 0
     end
 
     it 'saves all the data' do
-      expect(index_file.readlines.count).to eq 10
+      expect(local_index.readlines.count).to eq 10
     end
 
     it 'saves in the correct format' do
-      expect(index_file.readlines.last)
+      expect(local_index.readlines.last)
         .to match(/^[\w\/]*file_1.txt \| 5b\w*$/)
     end
 
     it 'closes the file when done' do
-      expect(index_file).to have_received :close
+      expect(local_index).to have_received :close
     end
   end
 

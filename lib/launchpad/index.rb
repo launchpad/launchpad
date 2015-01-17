@@ -7,12 +7,12 @@ class Index
     @files = []
   end
 
-  def index_file(mode: 'r')
-    @index_file ||= File.open @index_location, mode
+  def local_index(mode: 'r')
+    @local_index ||= File.open @index_location, mode
   end
 
   def load
-    index_file.each_line do |line|
+    local_index.each_line do |line|
       line.split(' | ').tap do |path, md5|
         @files << [ Pathname.new(path), md5.chomp ]
       end
@@ -28,7 +28,7 @@ class Index
     scan if files.empty?
 
     files.each do |data|
-      index_file(mode: 'w').write "#{data[0]} | #{data[1]}\n"
+      local_index(mode: 'w').write "#{data[0]} | #{data[1]}\n"
     end
 
     close
@@ -50,7 +50,7 @@ class Index
   private
 
   def close
-    index_file.close
-    @index_file = nil
+    local_index.close
+    @local_index = nil
   end
 end
