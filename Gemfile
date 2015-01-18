@@ -7,6 +7,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'coveralls', require: :false
   gem 'rake'
   gem 'rspec'
 end
