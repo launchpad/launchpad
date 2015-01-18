@@ -36,7 +36,8 @@ class Index
   # @return [self]
   def scan
     @local = []
-    recursive_scan.sort
+    recursive_scan
+    local.sort_by(&:first)
     save
   end
 
