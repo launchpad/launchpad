@@ -1,8 +1,7 @@
 require 'open-uri'
 
 class Index
-  attr_accessor :local, :remote
-  attr_writer :local_index_path, :remote_index_uri
+  attr_accessor :local, :local_index_path, :remote, :remote_index_uri
 
   def initialize(options = {})
     @target_dir = Pathname.new options[:target_dir]
@@ -11,7 +10,7 @@ class Index
   end
 
   def diff
-    (@remote - @local).map(&:first)
+    (remote - local).map(&:first)
   end
 
   def local
