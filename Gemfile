@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rake'
-gem 'rspec'
-gem 'pry-byebug'
+group :development do
+  gem 'pry-byebug'
+end
+
+group :development, :test do
+  gem 'rake'
+  gem 'rspec'
+end
