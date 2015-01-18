@@ -1,0 +1,5 @@
+path/file_1.txt | fake1md5
+path/file_2.txt | corrupt
+path/file_3.txt | fake3md5
+path/file_4.txt | corrupt
+path/file_5.txt | fake5md5
