@@ -83,10 +83,10 @@ describe Index do
     it 'updates with a full scan' do
       expect(subject.local.size).to eq 10
 
-      expect(subject.local.last.first.to_s)
+      expect(subject.local.last.first)
         .to eq 'spec/fixtures/test_dir/file_1.txt'
 
-      expect(subject.local.last.last.to_s)
+      expect(subject.local.last.last)
         .to eq '5bbf5a52328e7439ae6e719dfe712200'
     end
 

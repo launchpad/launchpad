@@ -36,7 +36,7 @@ class Index
   # @return [self]
   def scan
     @local = []
-    recursive_scan
+    recursive_scan.sort
     save
   end
 
@@ -69,7 +69,7 @@ class Index
   def recursive_scan(target = @target_dir)
     target.each_child do |pathname|
       if pathname.file?
-        @local << [ pathname, Digest::MD5.file(pathname) ]
+        @local << [ pathname.to_s, Digest::MD5.file(pathname) ]
       elsif pathname.directory?
         recursive_scan pathname
       end
