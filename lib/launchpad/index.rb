@@ -49,7 +49,7 @@ class Index
   def parse(file)
     file.read.split("\n").map do |line|
       line.split(' | ').tap do |path, md5|
-        [ Pathname.new(path), md5.chomp ]
+        [Pathname.new(path), md5.chomp]
       end
     end
   end
@@ -69,7 +69,7 @@ class Index
   def recursive_scan(target = @target_dir)
     target.each_child do |pathname|
       if pathname.file?
-        @local << [ pathname.to_s, Digest::MD5.file(pathname) ]
+        @local << [pathname.to_s, Digest::MD5.file(pathname)]
       elsif pathname.directory?
         recursive_scan pathname
       end
