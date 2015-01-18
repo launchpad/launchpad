@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class Index
-  attr_accessor :local, :local_index_path, :remote, :remote_index_uri
+  attr_reader :local, :remote
 
   def initialize(options = {})
     @target_dir = Pathname.new options[:target_dir]

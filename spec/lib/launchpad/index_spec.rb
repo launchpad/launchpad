@@ -18,8 +18,8 @@ describe Index do
 
     before do
       subject.local
-      subject.local_index_path = remote_index_uri
-      subject.remote = subject.send :parse_local
+      subject.instance_variable_set :@local_index_path, remote_index_uri
+      subject.instance_variable_set :@remote, subject.send(:parse_local)
     end
 
     it 'returns an array of needed files' do
