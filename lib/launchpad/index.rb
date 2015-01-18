@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'digest'
 
 # Provides a diff between local and remote file data by maintaining a cache
 # with pathnames and md5 hex digests
