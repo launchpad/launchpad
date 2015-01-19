@@ -37,7 +37,7 @@ class Index
   def scan
     @local = []
     recursive_scan
-    local.sort_by(&:first)
+    @local = sort local
     save
   end
 
@@ -52,15 +52,15 @@ class Index
   end
 
   def parse_local
-    File.open(@local_index_path, 'r') { |file| parse file }
+    sort File.open(@local_index_path, 'r') { |file| parse file }
   rescue Errno::ENOENT
-    false
+    []
   end
 
   def parse_remote
-    Kernel.open(@remote_index_uri) { |file| parse file }
+    sort Kernel.open(@remote_index_uri) { |file| parse file }
   rescue Errno::ENOENT
-    false
+    []
   end
 
   def recursive_scan(target = @target_dir)
@@ -82,5 +82,9 @@ class Index
 
     file.close
     self
+  end
+
+  def sort(list)
+    list.empty? ? list : list.sort_by(&:first)
   end
 end

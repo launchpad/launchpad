@@ -35,16 +35,16 @@ describe Index do
       let(:local_index_path) { 'spec/fixtures/indexes/local' }
 
       it 'returns an index of files' do
-        expect(subject.local.last.first).to eq 'path/file_5.txt'
-        expect(subject.local.last.last).to eq 'fake5md5'
+        expect(subject.local.first.first).to eq 'path/file_1.txt'
+        expect(subject.local.first.last).to eq 'fake1md5'
       end
     end
 
     context 'when an index is not found' do
       let(:local_index_path) { 'spec/fixtures/nope' }
 
-      it 'returns false' do
-        expect(subject.local).to be false
+      it 'returns an empty array' do
+        expect(subject.local).to eq []
       end
     end
   end
@@ -52,7 +52,7 @@ describe Index do
   describe '#remote' do
     context 'when an index is found' do
       before do
-        allow(Kernel).to receive :open
+        allow(Kernel).to receive(:open).and_raise Errno::ENOENT
         subject.remote
       end
 
@@ -64,8 +64,8 @@ describe Index do
     context 'when an index is not found' do
       before { allow(Kernel).to receive(:open).and_raise Errno::ENOENT }
 
-      it 'returns false' do
-        expect(subject.remote).to be false
+      it 'returns an empty array' do
+        expect(subject.remote).to eq []
       end
     end
   end
@@ -83,10 +83,10 @@ describe Index do
     it 'updates with a full scan' do
       expect(subject.local.size).to eq 10
 
-      expect(subject.local.last.first)
+      expect(subject.local.first.first)
         .to eq 'spec/fixtures/test_dir/file_1.txt'
 
-      expect(subject.local.last.last)
+      expect(subject.local.first.last)
         .to eq 'd41d8cd98f00b204e9800998ecf8427e'
     end
 
@@ -95,7 +95,7 @@ describe Index do
     end
 
     it 'saves in the correct format' do
-      expect(local_index.readlines.last)
+      expect(local_index.readlines.first)
         .to match(/^[\w\/]*file_1.txt \| d4\w*$/)
     end
   end
