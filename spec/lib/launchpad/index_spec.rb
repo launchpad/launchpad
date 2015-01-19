@@ -74,7 +74,7 @@ describe Index do
     let(:local_index) { StringIO.new }
 
     before do
-      allow(subject).to receive(:open_local).and_return local_index
+      allow(File).to receive(:open).and_return local_index
       allow(local_index).to receive :close
       subject.scan
       local_index.pos = 0
@@ -87,7 +87,7 @@ describe Index do
         .to eq 'spec/fixtures/test_dir/file_1.txt'
 
       expect(subject.local.last.last)
-        .to eq '5bbf5a52328e7439ae6e719dfe712200'
+        .to eq 'd41d8cd98f00b204e9800998ecf8427e'
     end
 
     it 'caches all the data' do
@@ -96,7 +96,7 @@ describe Index do
 
     it 'saves in the correct format' do
       expect(local_index.readlines.last)
-        .to match(/^[\w\/]*file_1.txt \| 5b\w*$/)
+        .to match(/^[\w\/]*file_1.txt \| d4\w*$/)
     end
   end
 end

@@ -1,5 +1,5 @@
-require 'open-uri'
 require 'digest'
+require 'open-uri'
 
 # Provides a diff between local and remote file data by maintaining a cache
 # with pathnames and md5 hex digests
@@ -43,10 +43,6 @@ class Index
 
   private
 
-  def open_local
-    File.open(@local_index_path, 'w')
-  end
-
   def parse(file)
     file.read.split("\n").map do |line|
       line.split(' | ').tap do |path, md5|
@@ -70,7 +66,7 @@ class Index
   def recursive_scan(target = @target_dir)
     target.each_child do |pathname|
       if pathname.file?
-        @local << [pathname.to_s, Digest::MD5.file(pathname)]
+        @local << [pathname.to_s, Digest::MD5.file(pathname).to_s]
       elsif pathname.directory?
         recursive_scan pathname
       end
@@ -78,7 +74,8 @@ class Index
   end
 
   def save
-    file = open_local
+    file = File.open(@local_index_path, 'w')
+
     local.each do |data|
       file.write "#{data[0]} | #{data[1]}\n"
     end
