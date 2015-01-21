@@ -1,9 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '1.9.3', engine: 'jruby', engine_version: '1.7.18'
+
+gem 'jrubyfx'
 
 group :development do
-  gem 'pry-byebug'
+  gem 'pry'
 end
 
 group :development, :test do
