@@ -1,6 +1,6 @@
-# Provides default configuration and allows user customization through creation
-# of a yaml file for overrides
-class Config
+# Provides default settings and allows user customization through creation of a
+# yaml file for overrides
+class Settings
   DEFAULT = {
     local_index_path: 'index',
     remote_index_uri: 'http://patcher.cuemu.com/index'

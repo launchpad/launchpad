@@ -1,2 +1,2 @@
-require 'launchpad/config'
+require 'launchpad/settings'
 require 'launchpad/index'
