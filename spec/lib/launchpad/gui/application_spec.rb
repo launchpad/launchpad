@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Window do
+describe Launchpad::Application do
   describe '#start' do
     let(:stage) { double 'stage' }
 

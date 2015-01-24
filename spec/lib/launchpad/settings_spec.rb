@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Settings do
+describe Launchpad::Settings do
   describe 'accessing default values' do
     describe '.local_index_path' do
       specify { expect(described_class.local_index_path).to eq 'index' }

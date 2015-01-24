@@ -1,3 +1,3 @@
 require 'launchpad/settings'
 require 'launchpad/index'
-require 'launchpad/window'
+require 'launchpad/gui/application'

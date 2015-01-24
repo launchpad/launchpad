@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Index do
+describe Launchpad::Index do
   subject { described_class.new args }
 
-  let(:target_dir) { Pathname.new 'spec/fixtures/test_dir' }
+  let(:target_dir) { 'spec/fixtures/test_dir' }
   let(:local_index_path) { 'spec/fixtures/indexes/local' }
   let(:remote_index_uri) { 'https://patch.cuemu.com/index' }
 
