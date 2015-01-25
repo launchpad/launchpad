@@ -1,6 +1,6 @@
 module Launchpad
   # Provides default settings and allows user customization through creation of
-  # a yaml file for overrides
+  # a yaml file for overrides.
   class Settings
     DEFAULT = {
       local_index_path: 'index',
