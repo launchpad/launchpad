@@ -1,0 +1,5 @@
+#!/usr/bin/env jruby
+
+require 'lib/launchpad'
+
+Launchpad::Application.launch
