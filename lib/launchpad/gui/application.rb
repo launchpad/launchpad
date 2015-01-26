@@ -9,7 +9,7 @@ module Launchpad
     # @param [Java::JavafxStage::Stage] stage
     #   automatically provided when {.launch} is called.
     def start(stage)
-      with(stage, title: 'Launchpad', width: 800, height: 600) do
+      with(stage, title: 'Launchpad', resizable: false) do
         fxml 'main.fxml'
         show
       end
