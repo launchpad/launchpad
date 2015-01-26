@@ -13,7 +13,7 @@ describe Launchpad::Application do
     it 'should set up the stage' do
       expect(stage).to have_received(:title=).with 'Launchpad'
       expect(stage).to have_received(:resizable=).with false
-      expect(stage).to have_received(:fxml).with 'main.fxml'
+      expect(stage).to have_received(:fxml).with Launchpad::MainController
       expect(stage).to have_received(:show)
     end
 

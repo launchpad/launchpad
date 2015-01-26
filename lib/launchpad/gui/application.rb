@@ -10,7 +10,7 @@ module Launchpad
     #   automatically provided when {.launch} is called.
     def start(stage)
       with(stage, title: 'Launchpad', resizable: false) do
-        fxml 'main.fxml'
+        fxml MainController
         show
       end
     end
