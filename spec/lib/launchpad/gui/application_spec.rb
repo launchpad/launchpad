@@ -3,22 +3,18 @@ require 'spec_helper'
 describe Launchpad::Application do
   describe '#start' do
     let(:stage) { double 'stage' }
+    let(:messages) { [:title=, :width=, :height=, :resizable=, :fxml, :show] }
 
     before do
-      messages = [:title=, :width=, :height=, :resizable=, :fxml, :show]
       messages.each { |message| allow(stage).to receive message }
       subject.start stage
     end
 
-    it 'should set up the stage' do
+    it 'should set up and show the stage' do
       expect(stage).to have_received(:title=).with 'Launchpad'
       expect(stage).to have_received(:resizable=).with false
       expect(stage).to have_received(:fxml).with Launchpad::MainController
       expect(stage).to have_received(:show)
-    end
-
-    it 'should not raise any errors' do
-      expect { subject.start stage }.to_not raise_error
     end
   end
 end
