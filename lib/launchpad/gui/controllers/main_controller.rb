@@ -6,8 +6,12 @@ module Launchpad
 
     # Triggered when the options button is pressed
     def show_options
-      @options ||= stage title: 'Options'
-      @options.on_close_request { @options = nil }
+      @options ||=
+        stage title: 'Options',
+              always_on_top: true,
+              x: Application.main_stage.x + 20,
+              y: Application.main_stage.y + 40
+
       @options.show
     end
   end
