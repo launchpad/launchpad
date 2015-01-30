@@ -6,6 +6,7 @@ gem 'jrubyfx'
 
 group :development do
   gem 'pry'
+  gem 'yard'
 end
 
 group :development, :test do
