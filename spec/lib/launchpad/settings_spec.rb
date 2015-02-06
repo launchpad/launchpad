@@ -9,7 +9,7 @@ describe Launchpad::Settings do
     describe '.remote_index_uri' do
       specify do
         expect(described_class.remote_index_uri)
-          .to eq 'http://patcher.cuemu.com/index'
+          .to eq 'http://patcher.example.com/index'
       end
     end
   end

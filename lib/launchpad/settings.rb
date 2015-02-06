@@ -4,8 +4,8 @@ module Launchpad
   class Settings
     # Default settings
     DEFAULT = {
-      local_index_path: '',
-      remote_index_uri: ''
+      local_index_path: 'index',
+      remote_index_uri: 'http://patcher.example.com/index'
     }
 
     class << self
