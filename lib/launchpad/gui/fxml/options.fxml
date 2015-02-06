@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane prefHeight="250.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Basic">
+               <content>
+                  <Pane prefWidth="500.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="46.0" text="Installation Directory" />
+                        <TextField layoutX="172.0" layoutY="41.0" prefHeight="25.0" prefWidth="300.0" />
+                        <TextField layoutX="172.0" layoutY="95.0" prefHeight="25.0" prefWidth="300.0" />
+                        <Label layoutX="67.0" layoutY="100.0" text="Login Server" />
+                        <Label layoutX="122.0" layoutY="132.0" text="Port" />
+                        <TextField layoutX="172.0" layoutY="127.0" prefHeight="25.0" prefWidth="107.0" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+          <Tab text="Advanced">
+               <content>
+                  <Pane>
+                     <children>
+                        <Label alignment="CENTER" layoutX="38.0" layoutY="46.0" text="Local Index Path" />
+                        <TextField layoutX="172.0" layoutY="41.0" prefHeight="25.0" prefWidth="300.0" />
+                        <Label layoutX="25.0" layoutY="100.0" text="Remote Index URL" />
+                        <TextField layoutX="172.0" layoutY="95.0" prefHeight="25.0" prefWidth="300.0" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button alignment="CENTER_RIGHT" layoutX="420.0" layoutY="210.0" mnemonicParsing="false" text="Accept" textAlignment="CENTER" />
+      <Button alignment="CENTER_RIGHT" layoutX="342.0" layoutY="210.0" mnemonicParsing="false" text="Cancel" textAlignment="CENTER" />
+   </children>
+</Pane>
