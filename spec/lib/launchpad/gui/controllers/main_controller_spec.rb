@@ -3,7 +3,10 @@ require 'spec_helper'
 describe Launchpad::MainController do
   let(:stage_class) { described_class::Stage }
   let(:stage_double) { double 'stage' }
-  let(:messages) { [:title=, :always_on_top=, :show, :x=, :y=] }
+
+  let(:messages) do
+    [:title=, :always_on_top=, :resizable=, :fxml=, :show, :x=, :y=]
+  end
 
   before do
     described_class.define_singleton_method(:initialize) {}
@@ -26,8 +29,15 @@ describe Launchpad::MainController do
       expect(subject.instance_variable_get :@options).to be stage_double
     end
 
+    it 'uses the options controller for the stage' do
+      expect(stage_double).to have_received(:fxml=)
+        .with Launchpad::OptionsController
+    end
+
     it 'sets the options stage attributes' do
       expect(stage_double).to have_received(:title=).with 'Options'
+      expect(stage_double).to have_received(:always_on_top=).with true
+      expect(stage_double).to have_received(:resizable=).with false
       expect(stage_double).to have_received(:x=).with 25
       expect(stage_double).to have_received(:y=).with 45
     end

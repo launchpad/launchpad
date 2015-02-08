@@ -8,7 +8,9 @@ module Launchpad
     def show_options
       @options ||=
         stage title: 'Options',
+              fxml: OptionsController,
               always_on_top: true,
+              resizable: false,
               x: Application.main_stage.x + 20,
               y: Application.main_stage.y + 40
 
