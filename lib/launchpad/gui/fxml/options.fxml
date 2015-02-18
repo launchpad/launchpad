@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane prefHeight="250.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE">
@@ -38,7 +37,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button alignment="CENTER_RIGHT" layoutX="420.0" layoutY="210.0" mnemonicParsing="false" text="Accept" textAlignment="CENTER" />
-      <Button alignment="CENTER_RIGHT" layoutX="342.0" layoutY="210.0" mnemonicParsing="false" text="Cancel" textAlignment="CENTER" />
+      <Button alignment="CENTER_RIGHT" layoutX="420.0" layoutY="210.0" mnemonicParsing="false" onAction="#accept" text="Accept" textAlignment="CENTER" />
+      <Button alignment="CENTER_RIGHT" layoutX="342.0" layoutY="210.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" textAlignment="CENTER" />
    </children>
 </Pane>

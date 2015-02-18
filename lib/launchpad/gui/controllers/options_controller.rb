@@ -3,5 +3,9 @@ module Launchpad
   class OptionsController
     include JRubyFX::Controller
     fxml 'options.fxml'
+
+    def cancel
+      @stage.close
+    end
   end
 end
