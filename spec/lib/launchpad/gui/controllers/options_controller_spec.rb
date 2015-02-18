@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Launchpad::OptionsController do
+describe Launchpad::OptionsController, type: :controller do
   subject do
     described_class.new.tap do |controller|
       controller.instance_variable_set :@stage, stage_double
@@ -8,11 +8,6 @@ describe Launchpad::OptionsController do
   end
 
   let(:stage_double) { double 'stage', close: true }
-
-  before do
-    described_class.define_singleton_method(:initialize) {}
-    described_class.define_singleton_method(:new) { allocate }
-  end
 
   describe '#cancel' do
     before { subject.cancel }

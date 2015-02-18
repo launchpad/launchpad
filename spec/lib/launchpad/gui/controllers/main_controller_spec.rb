@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Launchpad::MainController do
+describe Launchpad::MainController, type: :controller do
   let(:stage_class) { described_class::Stage }
   let(:stage_double) { double 'stage' }
 
@@ -9,9 +9,6 @@ describe Launchpad::MainController do
   end
 
   before do
-    described_class.define_singleton_method(:initialize) {}
-    described_class.define_singleton_method(:new) { allocate }
-
     allow(stage_class).to receive(:new).and_return stage_double
     messages.each { |message| allow(stage_double).to receive message }
 
