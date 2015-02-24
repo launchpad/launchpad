@@ -14,11 +14,11 @@
                   <Pane prefWidth="500.0">
                      <children>
                         <Label layoutX="14.0" layoutY="46.0" text="Installation Directory" />
-                        <TextField layoutX="172.0" layoutY="41.0" prefHeight="25.0" prefWidth="300.0" />
-                        <TextField layoutX="172.0" layoutY="95.0" prefHeight="25.0" prefWidth="300.0" />
+                        <TextField fx:id="install" layoutX="172.0" layoutY="41.0" prefHeight="25.0" prefWidth="300.0" />
+                        <TextField fx:id="login_server" layoutX="172.0" layoutY="95.0" prefHeight="25.0" prefWidth="300.0" />
                         <Label layoutX="67.0" layoutY="100.0" text="Login Server" />
                         <Label layoutX="122.0" layoutY="132.0" text="Port" />
-                        <TextField layoutX="172.0" layoutY="127.0" prefHeight="25.0" prefWidth="107.0" />
+                        <TextField fx:id="port" layoutX="172.0" layoutY="127.0" prefHeight="25.0" prefWidth="107.0" />
                      </children>
                   </Pane>
                </content>
@@ -28,9 +28,9 @@
                   <Pane>
                      <children>
                         <Label alignment="CENTER" layoutX="38.0" layoutY="46.0" text="Local Index Path" />
-                        <TextField layoutX="172.0" layoutY="41.0" prefHeight="25.0" prefWidth="300.0" />
+                        <TextField fx:id="local_index_path" layoutX="172.0" layoutY="41.0" prefHeight="25.0" prefWidth="300.0" />
                         <Label layoutX="25.0" layoutY="100.0" text="Remote Index URL" />
-                        <TextField layoutX="172.0" layoutY="95.0" prefHeight="25.0" prefWidth="300.0" />
+                        <TextField fx:id="remote_index_uri" layoutX="172.0" layoutY="95.0" prefHeight="25.0" prefWidth="300.0" />
                      </children>
                   </Pane>
                </content>
