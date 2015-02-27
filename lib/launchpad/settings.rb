@@ -14,14 +14,15 @@ module Launchpad
 
     def_delegators :instance, :read, :update, :save
 
+    # @return [Hash] hash of all saved settings loaded from yaml.
     attr_reader :settings
 
     def initialize
       @settings = YAML.load_file PATH
     end
 
-    # @param [Symbol] option
-    #   the attribute to be read from saved settings.
+    # @param option [Symbol] the attribute to be accessed from settings.
+    # @return [String] the value associated with the provided attribute.
     def read(option)
       settings[option.to_s].to_s
     end
