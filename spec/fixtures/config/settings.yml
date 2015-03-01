@@ -1,0 +1,5 @@
+install: test/install
+local_index_path: test/index
+remote_index_uri: http://patcher.example.com/index
+login_server: http://login.example.com/
+port: 12345

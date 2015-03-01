@@ -21,10 +21,29 @@ module Launchpad
       @settings = YAML.load_file PATH
     end
 
+    # Reads the given attribute from memory.
     # @param option [Symbol] the attribute to be accessed from settings.
     # @return [String] the value associated with the provided attribute.
     def read(option)
       settings[option.to_s].to_s
+    end
+
+    # Updates the given value in memory.
+    # @param option [Symbol] the attribute to be updated.
+    # @param value [String] the new value to be used.
+    # @return self
+    def update(option, value)
+      settings[option.to_s] = value
+    end
+
+    # Writes the current settings and their and values to disk as yaml.
+    # @return self
+    def save
+      File.open PATH, 'w' do |file|
+        file.write settings.to_yaml
+      end
+
+      self
     end
   end
 end
