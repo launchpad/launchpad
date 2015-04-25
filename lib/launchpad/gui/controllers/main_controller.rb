@@ -4,7 +4,8 @@ module Launchpad
     include JRubyFX::Controller
     fxml 'main.fxml'
 
-    attr_reader :update_manager, :status
+    # @return [UpdateManager] manages client file scans and patches.
+    attr_reader :update_manager
 
     def initialize
       super
