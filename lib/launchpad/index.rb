@@ -1,18 +1,15 @@
 require 'digest'
+require 'pathname'
 require 'open-uri'
 
 module Launchpad
   # Provides a diff between local and remote file data by maintaining a cache
   # with pathnames and md5 hex digests.
   class Index
-    # @param [Hash] options
-    # @option options [String] :installation_path root installation directory.
-    # @option options [String] :local_index_path where the local index is saved.
-    # @option options [String] :remote_index_uri uri for the remote index.
-    def initialize(options = {})
-      @target_dir = Pathname.new options[:target_dir]
-      @local_index_path = options[:local_index_path]
-      @remote_index_uri = options[:remote_index_uri]
+    def initialize
+      @target_dir = Pathname.new Settings.read(:target_dir)
+      @local_index_path = Settings.read :local_index_path
+      @remote_index_uri = Settings.read :remote_index_uri
     end
 
     # @return [Array<String>]

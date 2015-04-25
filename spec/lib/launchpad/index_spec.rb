@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 describe Launchpad::Index do
-  subject { described_class.new args }
+  subject { described_class.new }
 
   let(:target_dir) { 'spec/fixtures/test_dir' }
   let(:local_index_path) { 'spec/fixtures/indexes/local' }
   let(:remote_index_uri) { 'https://patch.cuemu.com/index' }
 
-  let(:args) do
-    { target_dir: target_dir,
-      remote_index_uri: remote_index_uri,
-      local_index_path: local_index_path }
+  before do
+    [:target_dir, :local_index_path, :remote_index_uri].each do |setting|
+      allow(Launchpad::Settings).to receive(:read)
+        .with(setting).and_return send(setting)
+    end
   end
 
   describe '#diff' do

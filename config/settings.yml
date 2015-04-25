@@ -1,5 +1,5 @@
 install: test/install
 local_index_path: test/index
-remote_index_uri: http://patcher.example.com/index
+remote_index_uri: https://raw.githubusercontent.com/lexun/swg-launchpad/master/spec/fixtures/indexes/remote
 login_server: http://login.example.com/
 port: 12345
