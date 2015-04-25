@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <WebView prefHeight="350.0" />
       <AnchorPane layoutY="350.0" prefHeight="46.0" prefWidth="800.0">
@@ -21,7 +21,7 @@
             <Button layoutX="662.0" layoutY="11.0" mnemonicParsing="false" text="Scan" />
             <Button layoutX="585.0" layoutY="11.0" mnemonicParsing="false" onAction="#show_options" text="Options" />
             <ProgressBar layoutX="14.0" layoutY="11.0" prefHeight="27.0" prefWidth="559.0" progress="0.0" />
-            <Label layoutX="33.0" layoutY="17.0" text="Info" />
+            <Label fx:id="status" layoutX="33.0" layoutY="17.0" text="Info" />
          </children>
       </AnchorPane>
    </children>

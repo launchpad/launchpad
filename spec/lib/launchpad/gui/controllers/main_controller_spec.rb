@@ -3,7 +3,26 @@ require 'spec_helper'
 describe Launchpad::MainController, type: :controller do
   subject { described_class.new stage: stage_double }
 
-  let(:stage_double) { double 'stage' }
+  let(:stage_double) { double 'stage', on_shown: true }
+
+  before { allow(Launchpad::UpdateManager).to receive :new }
+
+  describe '#initialize' do
+    let(:update_manager) { double 'update_manager' }
+
+    before do
+      allow(Launchpad::UpdateManager).to receive(:new).and_return update_manager
+      subject
+    end
+
+    it 'sets up an update manager' do
+      expect(subject.update_manager).to be update_manager
+    end
+
+    it 'sets up the on_shown hook' do
+      expect(stage_double).to have_received :on_shown
+    end
+  end
 
   describe '#show_options' do
     let(:options_stage) { double 'stage' }

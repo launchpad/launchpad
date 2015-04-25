@@ -1,6 +1,8 @@
 require 'lib/launchpad/settings'
+require 'lib/launchpad/patcher'
 require 'lib/launchpad/index'
 require 'lib/launchpad/gui/application'
+require 'lib/launchpad/gui/controllers/update_manager'
 require 'lib/launchpad/gui/controllers/main_controller'
 require 'lib/launchpad/gui/controllers/options_controller'
 

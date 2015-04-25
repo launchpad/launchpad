@@ -4,6 +4,15 @@ module Launchpad
     include JRubyFX::Controller
     fxml 'main.fxml'
 
+    attr_reader :update_manager, :status
+
+    def initialize
+      super
+
+      @update_manager = UpdateManager.new self
+      @stage.on_shown { update_manager.scan }
+    end
+
     # Triggered when the options button is pressed
     def show_options
       @options ||=
