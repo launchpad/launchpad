@@ -1,9 +1,6 @@
 require 'spec_helper'
 
-describe Launchpad::MainController, type: :controller do
-  subject { described_class.new stage: stage_double }
-
-  let(:stage_double) { double 'stage', on_shown: true }
+describe Launchpad::MainController do
 
   before { allow(Launchpad::UpdateManager).to receive :new }
 

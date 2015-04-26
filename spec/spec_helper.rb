@@ -4,19 +4,17 @@ Coveralls.wear!
 require 'pry' unless ENV['CI']
 require 'launchpad'
 require 'rspec'
+require 'support'
 
 RSpec.configure do |config|
   # Exit the javafx toolkit after running specs
   config.after(:suite) { JavaFXImpl::PlatformImpl.tkExit }
 
-  # Remove jrubyfx controller overrides and set the stage double
-  config.before(:example, type: :controller) do
-    described_class.define_singleton_method(:new) do |*args|
-      allocate.tap do |controller|
-        stage = args.last && args.last[:stage]
-        controller.instance_variable_set(:@stage, stage) if stage
-        controller.send :initialize
-      end
-    end
+  # Set type to controller for all specs in the controllers folder
+  config.define_derived_metadata(file_path: /controllers/) do |metadata|
+    metadata[:type] ||= :controller
   end
+
+  # Include the controller shared context for all controller specs
+  config.include Launchpad::RSpec::Controller, type: :controller
 end

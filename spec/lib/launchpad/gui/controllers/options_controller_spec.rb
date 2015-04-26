@@ -1,10 +1,6 @@
 require 'spec_helper'
 
-describe Launchpad::OptionsController, type: :controller do
-  subject { described_class.new stage: stage_double }
-
-  let(:stage_double) { double 'stage', on_shown: true, close: true }
-
+describe Launchpad::OptionsController do
   let(:options) do
     [:install, :local_index_path, :remote_index_uri, :login_server, :port]
   end
