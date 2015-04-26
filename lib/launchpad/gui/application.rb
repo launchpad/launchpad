@@ -4,8 +4,7 @@ module Launchpad
   # Main application which is only created once at launch.
   class Application < JRubyFX::Application
     class << self
-      # @!attribute main_stage
-      #   @return [Java::JavafxStage::Stage] the main stage.
+      # @return [Java::JavafxStage::Stage] the main stage.
       attr_accessor :main_stage
     end
 
