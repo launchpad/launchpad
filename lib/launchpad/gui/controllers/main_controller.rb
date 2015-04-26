@@ -1,20 +1,28 @@
 module Launchpad
-  # Main application GUI controller
+  # Main application GUI controller.
   class MainController
     include JRubyFX::Controller
     fxml 'main.fxml'
 
-    # @return [UpdateManager] manages client file scans and patches.
-    attr_reader :update_manager
+    # @return [Launchpad::Patcher]
+    attr_reader :patcher
+
+    # @return [Java::JavafxSceneControl::Label]
+    attr_reader :status
 
     def initialize
       super
 
-      @update_manager = UpdateManager.new self
-      @stage.on_shown { update_manager.scan }
+      @patcher = Patcher.new
+      @stage.on_shown { scan }
     end
 
-    # Triggered when the options button is pressed
+    # Compares local and remote files and updates the UI accordingly.
+    def scan
+      patcher.in_sync? ? ready_to_launch : ready_to_update
+    end
+
+    # Triggered when the options button is pressed.
     def show_options
       @options ||=
         stage title: 'Options',
@@ -25,6 +33,16 @@ module Launchpad
               y: Application.main_stage.y + 40
 
       @options.show
+    end
+
+    private
+
+    def ready_to_launch
+      status.set_text 'Ready'
+    end
+
+    def ready_to_update
+      status.set_text 'Update required...'
     end
   end
 end

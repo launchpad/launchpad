@@ -31,7 +31,7 @@ describe Launchpad::OptionsController do
     before { subject.accept }
 
     it 'closes the stage' do
-      expect(stage_double).to have_received :close
+      expect(stage).to have_received :close
     end
 
     it 'updates all settings with values from the form' do
@@ -48,7 +48,7 @@ describe Launchpad::OptionsController do
     before { subject.cancel }
 
     it 'closes the stage' do
-      expect(stage_double).to have_received :close
+      expect(stage).to have_received :close
     end
   end
 

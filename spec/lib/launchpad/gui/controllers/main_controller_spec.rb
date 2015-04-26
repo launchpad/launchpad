@@ -1,23 +1,48 @@
 require 'spec_helper'
 
 describe Launchpad::MainController do
+  let(:patcher) { double 'patcher' }
+  let(:stage) { double 'stage', on_shown: true }
+  let(:status) { double 'status', set_text: nil }
 
-  before { allow(Launchpad::UpdateManager).to receive :new }
+  before do
+    allow(Launchpad::Patcher).to receive(:new).and_return patcher
+    allow(subject).to receive(:status).and_return status
+  end
 
   describe '#initialize' do
-    let(:update_manager) { double 'update_manager' }
+    before { subject }
 
-    before do
-      allow(Launchpad::UpdateManager).to receive(:new).and_return update_manager
-      subject
-    end
-
-    it 'sets up an update manager' do
-      expect(subject.update_manager).to be update_manager
+    it 'sets up an patcher' do
+      expect(subject.patcher).to be patcher
     end
 
     it 'sets up the on_shown hook' do
-      expect(stage_double).to have_received :on_shown
+      expect(stage).to have_received :on_shown
+    end
+  end
+
+  describe '#scan' do
+    before do
+      allow(Launchpad::Patcher).to receive(:new).and_return patcher
+      subject.scan
+    end
+
+    context 'when files are in sync' do
+      let(:patcher) { double :patcher, in_sync?: true }
+
+      it 'displays a message that files are synced' do
+        expect(subject.status).to have_received(:set_text).with 'Ready'
+      end
+    end
+
+    context 'when files are out of sync' do
+      let(:patcher) { double :patcher, in_sync?: false }
+
+      it 'displays a message that there are files that need syncing' do
+        expect(subject.status)
+          .to have_received(:set_text).with 'Update required...'
+      end
     end
   end
 
@@ -52,11 +77,15 @@ describe Launchpad::MainController do
     end
 
     it 'sets the options stage attributes' do
-      expect(options_stage).to have_received(:title=).with 'Options'
-      expect(options_stage).to have_received(:always_on_top=).with true
-      expect(options_stage).to have_received(:resizable=).with false
-      expect(options_stage).to have_received(:x=).with 25
-      expect(options_stage).to have_received(:y=).with 45
+      options = { :title= => 'Options',
+                  :always_on_top= => true,
+                  :resizable= => false,
+                  :x= => 25,
+                  :y= => 45 }
+
+      options.each do |option, setting|
+        expect(options_stage).to have_received(option).with setting
+      end
     end
 
     it 'shows the options stage' do
