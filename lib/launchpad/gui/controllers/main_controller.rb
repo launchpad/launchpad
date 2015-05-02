@@ -19,7 +19,9 @@ module Launchpad
 
     # Compares local and remote files and updates the UI accordingly.
     def scan
-      patcher.in_sync? ? ready_to_launch : ready_to_update
+      Thread.new do
+        patcher.in_sync? ? ready_to_launch : ready_to_update
+      end
     end
 
     # Triggered when the options button is pressed.
@@ -38,11 +40,15 @@ module Launchpad
     private
 
     def ready_to_launch
-      status.set_text 'Ready'
+      Platform.run_later do
+        status.set_text 'Ready'
+      end
     end
 
     def ready_to_update
-      status.set_text 'Update required...'
+      Platform.run_later do
+        status.set_text 'Update required...'
+      end
     end
   end
 end

@@ -24,6 +24,9 @@ describe Launchpad::MainController do
 
   describe '#scan' do
     before do
+      stub_const 'Platform', double
+      allow(Thread).to receive(:new).and_yield
+      allow(Platform).to receive(:run_later).and_yield
       allow(Launchpad::Patcher).to receive(:new).and_return patcher
       subject.scan
     end
