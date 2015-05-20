@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Launchpad::MainController do
-  let(:patcher) { double 'patcher' }
+  let(:patcher) { instance_double Launchpad::Patcher, on_update: nil }
   let(:stage) { double 'stage', on_shown: true }
   let(:status) { double 'status', set_text: nil }
 
@@ -32,7 +32,9 @@ describe Launchpad::MainController do
     end
 
     context 'when files are in sync' do
-      let(:patcher) { double :patcher, in_sync?: true }
+      let(:patcher) do
+        instance_double Launchpad::Patcher, on_update: nil, in_sync?: true
+      end
 
       it 'displays a message that files are synced' do
         expect(subject.status).to have_received(:set_text).with 'Ready'
@@ -40,7 +42,9 @@ describe Launchpad::MainController do
     end
 
     context 'when files are out of sync' do
-      let(:patcher) { double :patcher, in_sync?: false }
+      let(:patcher) do
+        instance_double Launchpad::Patcher, on_update: nil, in_sync?: false
+      end
 
       it 'displays a message that there are files that need syncing' do
         expect(subject.status)

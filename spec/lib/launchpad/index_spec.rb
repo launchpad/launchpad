@@ -1,14 +1,15 @@
 require 'spec_helper'
 
 describe Launchpad::Index do
-  subject { described_class.new }
+  subject { described_class.new patcher }
+  let(:patcher) { instance_double Launchpad::Patcher, :progress= => nil }
 
-  let(:target_dir) { 'spec/fixtures/test_dir' }
+  let(:install) { 'spec/fixtures/test_dir' }
   let(:local_index_path) { 'spec/fixtures/indexes/local' }
   let(:remote_index_uri) { 'https://patch.cuemu.com/index' }
 
   before do
-    [:target_dir, :local_index_path, :remote_index_uri].each do |setting|
+    [:install, :local_index_path, :remote_index_uri].each do |setting|
       allow(Launchpad::Settings).to receive(:read)
         .with(setting).and_return send(setting)
     end
@@ -18,9 +19,11 @@ describe Launchpad::Index do
     let(:remote_index_uri) { 'spec/fixtures/indexes/remote' }
 
     before do
-      subject.local
+      local = subject.local
       subject.instance_variable_set :@local_index_path, remote_index_uri
-      subject.instance_variable_set :@remote, subject.send(:parse_local)
+      subject.instance_variable_set :@local, nil
+      subject.instance_variable_set :@remote, subject.send(:local)
+      subject.instance_variable_set :@local, local
     end
 
     it 'returns an array of needed files' do
@@ -97,7 +100,7 @@ describe Launchpad::Index do
 
     it 'saves in the correct format' do
       expect(local_index.readlines.first)
-        .to match(/^[\w\/]*file_1.txt \| d4\w*$/)
+        .to match %r{^[\w\/]*file_1.txt \| d4\w*$}
     end
   end
 end

@@ -7,13 +7,20 @@ module Launchpad
     # @return [Launchpad::Patcher] manages syncing local and remote files
     attr_reader :patcher
 
-    # @return [Java::JavafxSceneControl::Label] for displaying status to the ui
+    # @return [Java::JavafxSceneControl::ProgressBar]
+    #   for updating the progress bar in the ui
+    attr_reader :progress
+
+    # @return [Java::JavafxSceneControl::Label]
+    #   for displaying status to the ui
     attr_reader :status
 
     def initialize
       super
 
       @patcher = Patcher.new
+      @patcher.on_update { update_progress }
+
       @stage.on_shown { scan }
     end
 
@@ -38,6 +45,12 @@ module Launchpad
     end
 
     private
+
+    def update_progress
+      Platform.run_later do
+        progress.set_progress patcher.progress
+      end
+    end
 
     def ready_to_launch
       Platform.run_later do
