@@ -44,13 +44,14 @@ module Launchpad
       @options.show
     end
 
-    private
-
+    # Update the UI with the patcher's current progress.
     def update_progress
       Platform.run_later do
         progress.set_progress patcher.progress
       end
     end
+
+    private
 
     def ready_to_launch
       Platform.run_later do

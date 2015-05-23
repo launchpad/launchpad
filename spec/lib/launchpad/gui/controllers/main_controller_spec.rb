@@ -111,4 +111,25 @@ describe Launchpad::MainController do
       end
     end
   end
+
+  describe '#update_progress' do
+    let(:progress) do
+      double Java::JavafxSceneControl::ProgressBar, set_progress: nil
+    end
+
+    let(:patcher) do
+      instance_double Launchpad::Patcher, progress: 0.2, on_update: nil
+    end
+
+    before do
+      stub_const 'Platform', double
+      allow(Platform).to receive(:run_later).and_yield
+      allow(subject).to receive(:progress).and_return progress
+      subject.update_progress
+    end
+
+    it 'updates the UI with the patcher\'s current progress' do
+      expect(progress).to have_received(:set_progress).with 0.2
+    end
+  end
 end
