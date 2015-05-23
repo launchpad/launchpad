@@ -6,6 +6,9 @@ module Launchpad
   # Provides a diff between local and remote file data by maintaining a cache
   # with pathnames and md5 hex digests.
   class Index
+    # Creates an Index, reading the installation directory and index locations
+    #   from the Settings singleton.
+    # @param [Launchpad::Patcher] patcher to report progress to.
     def initialize(patcher)
       @patcher = patcher
       @target_dir = Pathname.new Settings.read :install

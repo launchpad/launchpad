@@ -14,14 +14,15 @@ module Launchpad
       index.diff.empty?
     end
 
-    # Determines the code to be executed when progress changes for the current
-    # operation.
+    # Allows a callback to be provided that will run whenever progress is set.
+    # @param [Proc] block
+    # @return [self]
     def on_update(&block)
       @update_callback = block
+      self
     end
 
-    # @return [Float]
-    #   denotes the completion percentage for the current operation.
+    # @return [Float] the completion percentage for the current operation.
     def progress
       @progress || 0.0
     end

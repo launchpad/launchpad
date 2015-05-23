@@ -4,15 +4,15 @@ module Launchpad
     include JRubyFX::Controller
     fxml 'main.fxml'
 
-    # @return [Launchpad::Patcher] manages syncing local and remote files
+    # @return [Launchpad::Patcher] manages syncing local and remote files.
     attr_reader :patcher
 
     # @return [Java::JavafxSceneControl::ProgressBar]
-    #   for updating the progress bar in the ui
+    #   for updating the progress bar in the ui.
     attr_reader :progress
 
     # @return [Java::JavafxSceneControl::Label]
-    #   for displaying status to the ui
+    #   for displaying status to the ui.
     attr_reader :status
 
     def initialize
