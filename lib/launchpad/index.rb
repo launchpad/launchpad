@@ -40,10 +40,10 @@ module Launchpad
     def scan
       reset_local
 
-      files = Pathname.glob(@target_dir + '**/*').select(&:file?)
-
-      files.each_with_index do |pathname, index|
-        append_record pathname, index, files.size
+      Pathname.glob(@target_dir + '**/*').select(&:file?).tap do |files|
+        files.each_with_index do |pathname, index|
+          append_record pathname, index, files.size
+        end
       end
 
       save
