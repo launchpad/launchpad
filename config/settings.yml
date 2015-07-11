@@ -1,5 +1,6 @@
+---
 install: spec/fixtures/test_dir
 local_index_path: spec/fixtures/indexes/local
 remote_index_uri: https://raw.githubusercontent.com/lexun/swg-launchpad/master/spec/fixtures/indexes/remote
 login_server: http://login.example.com/
-port: 12345
+port: '12345'
