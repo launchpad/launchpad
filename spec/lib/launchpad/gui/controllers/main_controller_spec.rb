@@ -1,12 +1,19 @@
 require 'spec_helper'
 
 describe Launchpad::MainController do
-  let(:patcher) { instance_double Launchpad::Patcher, on_update: nil }
+  let(:patcher) do
+    instance_double Launchpad::Patcher, on_update: nil, in_sync?: in_sync
+  end
+
   let(:stage) { double 'stage', on_shown: true }
+  let(:scan_button) { double 'scan_button', :disabled= => nil }
   let(:status) { double 'status', set_text: nil }
+
+  let(:in_sync) { nil }
 
   before do
     allow(Launchpad::Patcher).to receive(:new).and_return patcher
+    allow(subject).to receive(:scan_button).and_return scan_button
     allow(subject).to receive(:status).and_return status
   end
 
@@ -31,10 +38,22 @@ describe Launchpad::MainController do
       subject.scan
     end
 
+    it 'updates the status to scanning' do
+      expect(subject.status).to have_received(:set_text).with 'Scanning...'
+    end
+
+    it 'disables the scan button before starting' do
+      expect(scan_button).to have_received(:disabled=).with(true).ordered
+      expect(patcher).to have_received(:in_sync?).ordered
+    end
+
+    it 'enables the scan button after scanning' do
+      expect(patcher).to have_received(:in_sync?).ordered
+      expect(scan_button).to have_received(:disabled=).with(false).ordered
+    end
+
     context 'when files are in sync' do
-      let(:patcher) do
-        instance_double Launchpad::Patcher, on_update: nil, in_sync?: true
-      end
+      let(:in_sync) { true }
 
       it 'displays a message that files are synced' do
         expect(subject.status).to have_received(:set_text).with 'Ready'
@@ -42,9 +61,7 @@ describe Launchpad::MainController do
     end
 
     context 'when files are out of sync' do
-      let(:patcher) do
-        instance_double Launchpad::Patcher, on_update: nil, in_sync?: false
-      end
+      let(:in_sync) { false }
 
       it 'displays a message that there are files that need syncing' do
         expect(subject.status)

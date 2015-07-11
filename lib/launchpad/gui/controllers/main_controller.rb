@@ -11,6 +11,10 @@ module Launchpad
     #   for updating the progress bar in the ui.
     attr_reader :progress
 
+    # @return [Java::JavafxSceneControl::Button]
+    #   for disabling during scanning.
+    attr_reader :scan_button
+
     # @return [Java::JavafxSceneControl::Label]
     #   for displaying status to the ui.
     attr_reader :status
@@ -26,8 +30,12 @@ module Launchpad
 
     # Compares local and remote files and updates the UI accordingly.
     def scan
+      status.set_text 'Scanning...'
+      scan_button.disabled = true
+
       Thread.new do
         patcher.in_sync? ? ready_to_launch : ready_to_update
+        Platform.run_later { scan_button.disabled = false }
       end
     end
 
